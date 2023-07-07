@@ -44,3 +44,13 @@ mkdir -p ~/.local/bin
 curl -Ls https://micro.mamba.pm/api/micromamba/$PLATFORM-$ARCH/latest | tar -xvj -C ~/.local/bin/ --strip-components=1 bin/micromamba
 PREFIXLOCATION="~/micromamba"
 ~/.local/bin/micromamba shell init -p $PREFIXLOCATION
+~/.local/bin/micromamba config append channels conda-forge
+~/.local/bin/micromamba config set auto_activate_base true
+
+echo alias mm='micromamba' >> ~/.bashrc
+echo complete -o default -F _umamba_bash_completions mm >> ~/.bashrc
+
+echo '#!/bin/bash' >> ~/.local/bin/activate
+echo 'eval "$(micromamba shell hook --shell=bash)"' >> ~/.local/bin/activate
+echo 'micromamba activate $@' >> ~/.local/bin/activate
+chmod 775 ~/.local/bin/activate
