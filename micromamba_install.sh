@@ -15,7 +15,7 @@ failure() {
 
 trap 'failure ${LINENO} "$BASH_COMMAND"' ERR
 
-sudo apt-get update && sudo apt-get install bash-completion curl tar bzip2 zstd
+sudo apt-get update && sudo apt-get install -y bash-completion curl tar bzip2 zstd
 
 ARCH=$(uname -m)
 OS=$(uname)
