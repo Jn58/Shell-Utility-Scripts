@@ -1,7 +1,7 @@
-# >>> Import defaults_vim >>>
+" >>> Import defaults_vim >>>
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
-# <<< Import defaults_vim <<<
+" <<< Import defaults_vim <<<
 
 set et 
 set nu
