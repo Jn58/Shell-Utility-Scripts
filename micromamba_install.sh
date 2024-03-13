@@ -45,6 +45,7 @@ curl -Ls https://micro.mamba.pm/api/micromamba/$PLATFORM-$ARCH/latest | tar -xvj
 PREFIXLOCATION="~/micromamba"
 ~/.local/bin/micromamba shell init -p $PREFIXLOCATION
 ~/.local/bin/micromamba config append channels conda-forge
+~/.local/bin/micromamba config append channels anaconda
 ~/.local/bin/micromamba config set auto_activate_base true
 
 echo alias mm='micromamba' >> ~/.bashrc
