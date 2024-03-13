@@ -15,8 +15,6 @@ failure() {
 
 trap 'failure ${LINENO} "$BASH_COMMAND"' ERR
 
-sudo apt-get update && sudo apt-get install -y bash-completion curl tar bzip2 zstd
-
 ARCH=$(uname -m)
 OS=$(uname)
 
@@ -31,17 +29,24 @@ if [[ "$OS" == "Linux" ]]; then
   fi
 fi
 
-if [[ "$OS" == "Darwin" ]]; then
-  PLATFORM="osx";
-  if [[ "$ARCH" == "arm64" ]]; then
-    ARCH="arm64";
-  else
-    ARCH="64"
+# Install requirments
+requirements="bash-completion curl tar bzip2 zstd"
+installed="apt list --installed"
+missing_programs=()
+for program in $requirements; do
+  if ! grep -q "^$program" <<< installed; then
+    missing_programs+=("$program")
   fi
+done
+
+if [ ${#missing_programs[@]} -gt 0 ]; then
+    echo "The following requirements wil be installed: ${missing_programs[*]}"
+    sudo apt-get update -qq
+    sudo apt-get install -qq -y ${missing_programs[@]} &>/dev/null
 fi
 
 mkdir -p ~/.local/bin
-curl -Ls https://micro.mamba.pm/api/micromamba/$PLATFORM-$ARCH/latest | tar -xvj -C ~/.local/bin/ --strip-components=1 bin/micromamba
+curl -Ls https://micro.mamba.pm/api/micromamba/$PLATFORM-$ARCH/latest | tar -xj -C ~/.local/bin/ --strip-components=1 bin/micromamba
 PREFIXLOCATION="~/micromamba"
 ~/.local/bin/micromamba shell init -p $PREFIXLOCATION
 ~/.local/bin/micromamba config append channels conda-forge
