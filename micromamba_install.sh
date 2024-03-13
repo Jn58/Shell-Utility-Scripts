@@ -27,7 +27,10 @@ if [[ "$OS" == "Linux" ]]; then
   else
     ARCH="64";
   fi
+else
+  echo "This script is for Linux only" && exit 1
 fi
+
 
 # Install requirments
 requirements="bash-completion curl tar bzip2 zstd"
