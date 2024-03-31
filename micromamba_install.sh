@@ -15,6 +15,8 @@ failure() {
 
 trap 'failure ${LINENO} "$BASH_COMMAND"' ERR
 
+SUDO=$([ $EUID -eq 0 ] || echo "sudo ") 
+
 ARCH=$(uname -m)
 OS=$(uname)
 
@@ -44,8 +46,8 @@ done
 
 if [ ${#missing_programs[@]} -gt 0 ]; then
     echo "The following requirements wil be installed: ${missing_programs[*]}"
-    sudo apt-get update -qq
-    sudo apt-get install -qq -y ${missing_programs[@]} &>/dev/null
+    ${SUDO}apt-get update -qq
+    ${SUDO}apt-get install -qq -y ${missing_programs[@]} &>/dev/null
 fi
 
 mkdir -p ~/.local/bin
