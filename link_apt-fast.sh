@@ -1,7 +1,6 @@
 #!/bin/sh
 
 set -e
-set -x
 
 APT_GET=$(which apt-get)
 if [ -L $APT_GET ]; then
