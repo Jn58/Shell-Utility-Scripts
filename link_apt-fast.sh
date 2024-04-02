@@ -58,7 +58,7 @@ if ! ${SUDO}which apt-fast; then
     else
         ${SUDO}tee -a "_SPLITCON=${NUM}" /etc/apt-fast.conf;
     fi
-    if [ $NUM -bt 16 ]; then
+    if [ $NUM -gt 16 ]; then
         NUM=16
     fi
     if ${SUDO}grep "^_MAXCONPERSRV=" /etc/apt-fast.conf; then
