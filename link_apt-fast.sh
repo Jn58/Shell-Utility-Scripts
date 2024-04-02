@@ -14,7 +14,7 @@ if [ -L $APT_GET ]; then
     fi
 fi
 
-if [ $EUID -ne 0 ]; then
+if [ $(id -u) -ne 0 ]; then
     exec sudo /bin/sh "$0" "$@"
 fi
 
