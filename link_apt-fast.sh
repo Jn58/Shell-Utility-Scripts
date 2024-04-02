@@ -69,3 +69,4 @@ if ! ${SUDO}which apt-fast; then
 fi
 
 ${SUDO}ln -s $(${SUDO}which apt-fast) $FAST_PATH/apt-get
+${SUDO}ln -s $(${SUDO}which apt-fast) $FAST_PATH/apt
