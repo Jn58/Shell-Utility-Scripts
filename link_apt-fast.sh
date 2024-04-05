@@ -1,4 +1,6 @@
 #!/bin/bash
+# Install command
+# curl https://raw.githubusercontent.com/Jn58/Shell-Utility-Scripts/main/link_apt-fast.sh | sh
 
 set -e
 
