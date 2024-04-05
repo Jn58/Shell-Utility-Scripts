@@ -39,35 +39,36 @@ if ! ${SUDO}which apt-fast; then
     ${SUDO}add-apt-repository -y ppa:apt-fast/stable
     ${SUDO}apt-get update;
     ${SUDO}bash -c "DEBIAN_FRONTEND=noninteractive apt-get install -y apt-fast";
-    if ${SUDO}grep "^_APTMGR=" /etc/apt-fast.conf; then
-        ${SUDO}sed -i "s|^_APTMGR=.*|_APTMGR=${APT_GET}|" /etc/apt-fast.conf;
-    else
-        ${SUDO}tee -a "_APTMGR=${APT_GET}" /etc/apt-fast.conf;
-    fi
-    if ${SUDO}grep "^DOWNLOADBEFORE=" /etc/apt-fast.conf; then
-        ${SUDO}sed -i "s|^DOWNLOADBEFORE=.*|DOWNLOADBEFORE=true|" /etc/apt-fast.conf;
-    else
-        ${SUDO}tee -a "DOWNLOADBEFORE=true" /etc/apt-fast.conf;
-    fi
-    NUM=$(nproc)
-    if ${SUDO}grep "^_MAXNUM=" /etc/apt-fast.conf; then
-        ${SUDO}sed -i "s|^_MAXNUM=.*|_MAXNUM=${NUM}|" /etc/apt-fast.conf;
-    else
-        ${SUDO}tee -a "_MAXNUM=${NUM}" /etc/apt-fast.conf;
-    fi
-    if ${SUDO}grep "^_SPLITCON=" /etc/apt-fast.conf; then
-        ${SUDO}sed -i "s|^_SPLITCON=.*|_SPLITCON=${NUM}|" /etc/apt-fast.conf;
-    else
-        ${SUDO}tee -a "_SPLITCON=${NUM}" /etc/apt-fast.conf;
-    fi
-    if [ $NUM -gt 16 ]; then
-        NUM=16
-    fi
-    if ${SUDO}grep "^_MAXCONPERSRV=" /etc/apt-fast.conf; then
-        ${SUDO}sed -i "s|^_MAXCONPERSRV=.*|_MAXCONPERSRV=${NUM}|" /etc/apt-fast.conf;
-    else
-        ${SUDO}tee -a "_MAXCONPERSRV=${NUM}" /etc/apt-fast.conf;
-    fi
+fi
+
+if ${SUDO}grep "^_APTMGR=" /etc/apt-fast.conf; then
+    ${SUDO}sed -i "s|^_APTMGR=.*|_APTMGR=${APT_GET}|" /etc/apt-fast.conf;
+else
+    ${SUDO}tee -a "_APTMGR=${APT_GET}" /etc/apt-fast.conf;
+fi
+if ${SUDO}grep "^DOWNLOADBEFORE=" /etc/apt-fast.conf; then
+    ${SUDO}sed -i "s|^DOWNLOADBEFORE=.*|DOWNLOADBEFORE=true|" /etc/apt-fast.conf;
+else
+    ${SUDO}tee -a "DOWNLOADBEFORE=true" /etc/apt-fast.conf;
+fi
+NUM=$(nproc)
+if ${SUDO}grep "^_MAXNUM=" /etc/apt-fast.conf; then
+    ${SUDO}sed -i "s|^_MAXNUM=.*|_MAXNUM=${NUM}|" /etc/apt-fast.conf;
+else
+    ${SUDO}tee -a "_MAXNUM=${NUM}" /etc/apt-fast.conf;
+fi
+if ${SUDO}grep "^_SPLITCON=" /etc/apt-fast.conf; then
+    ${SUDO}sed -i "s|^_SPLITCON=.*|_SPLITCON=${NUM}|" /etc/apt-fast.conf;
+else
+    ${SUDO}tee -a "_SPLITCON=${NUM}" /etc/apt-fast.conf;
+fi
+if [ $NUM -gt 16 ]; then
+    NUM=16
+fi
+if ${SUDO}grep "^_MAXCONPERSRV=" /etc/apt-fast.conf; then
+    ${SUDO}sed -i "s|^_MAXCONPERSRV=.*|_MAXCONPERSRV=${NUM}|" /etc/apt-fast.conf;
+else
+    ${SUDO}tee -a "_MAXCONPERSRV=${NUM}" /etc/apt-fast.conf;
 fi
 
 ${SUDO}ln -s $(${SUDO}which apt-fast) $FAST_PATH/apt-get
