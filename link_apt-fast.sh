@@ -10,9 +10,9 @@ else
     SUDO=""
 fi
 
-APT_GET=$(${SUDO}which apt-get)
-if [ -L $APT_GET ]; then
-    LINK=$(${SUDO}readlink $APT_GET)
+APT=$(${SUDO}which apt)
+if [ -L $APT ]; then
+    LINK=$(${SUDO}readlink $APT)
     if [ $(${SUDO}basename $LINK) = "apt-fast" ]; then
         echo 'apt-fast is already applied'
         exit 0
@@ -23,7 +23,7 @@ if [ -L $APT_GET ]; then
 fi
 
 
-APT_PATH=$(${SUDO}dirname $APT_GET)
+APT_PATH=$(${SUDO}dirname $APT)
 FAST_PATH=$(${SUDO}bash -c "echo \$PATH | cut -d: -f 1")
 
 if [ $APT_PATH = $FAST_PATH ]; then
@@ -42,9 +42,9 @@ if ! ${SUDO}which apt-fast; then
 fi
 
 if ${SUDO}grep "^_APTMGR=" /etc/apt-fast.conf; then
-    ${SUDO}sed -i "s|^_APTMGR=.*|_APTMGR=${APT_GET}|" /etc/apt-fast.conf;
+    ${SUDO}sed -i "s|^_APTMGR=.*|_APTMGR=${APT}|" /etc/apt-fast.conf;
 else
-    ${SUDO}tee -a "_APTMGR=${APT_GET}" /etc/apt-fast.conf;
+    ${SUDO}tee -a "_APTMGR=${APT}" /etc/apt-fast.conf;
 fi
 if ${SUDO}grep "^DOWNLOADBEFORE=" /etc/apt-fast.conf; then
     ${SUDO}sed -i "s|^DOWNLOADBEFORE=.*|DOWNLOADBEFORE=true|" /etc/apt-fast.conf;
