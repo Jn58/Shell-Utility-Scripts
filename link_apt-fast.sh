@@ -34,7 +34,7 @@ fi
 if ! ${SUDO}which apt-fast; then
     if ! ${SUDO}which add-apt-repository; then
         ${SUDO}apt-get update;
-        ${SUDO}apt-get install -y software-properties-common;
+        ${SUDO}apt-get install -y software-properties-common python3-launchpadlib;
     fi
     ${SUDO}add-apt-repository -y ppa:apt-fast/stable
     ${SUDO}apt-get update;
