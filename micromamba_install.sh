@@ -46,8 +46,8 @@ done
 
 if [ ${#missing_programs[@]} -gt 0 ]; then
     echo "The following requirements wil be installed: ${missing_programs[*]}"
-    ${SUDO}apt-get update -qq
-    ${SUDO}apt-get install -qq -y ${missing_programs[@]} &>/dev/null
+    ${SUDO}apt-get update
+    ${SUDO}apt-get install -y ${missing_programs[@]} &>/dev/null
 fi
 
 mkdir -p ~/.local/bin
